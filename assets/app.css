@@ -1,0 +1,67 @@
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--tan-color: rgb(222,206,180);
+	--red-color: rgb(136,49,42);
+	--dard-red-color: rgb(95,22,16);
+}
+
+#blank {
+	background-color: rgba(0, 0, 0, 0);
+	border: none;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+body {
+	background: no-repeat center/100% 100% url('./images/background.jpg');
+	height: 100vh;
+	width: 100vw;
+	display: grid;
+	place-items: center;
+}
+
+#slider-body {
+	height: 12.5rem;
+	width: 12.5rem;
+	padding: 0.25rem;
+	border-radius: 0.25rem;
+	box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.5);
+	background: linear-gradient(to bottom right, #e0e0e0, #747474);
+	display: grid;
+	grid-template:  "1-4 2-4 3-4 4-4" 3rem
+					"1-3 2-3 3-3 4-3" 3rem
+					"1-2 2-2 3-2 4-2" 3rem
+					"1-1 2-1 3-1 4-1" 3rem / 3rem 3rem 3rem 3rem;
+}
+
+.slider-square {
+	width: 100%;
+	height: 100%;
+	padding: 0.25rem;
+	border-radius: 0.25rem;
+	color: gray;
+	box-shadow: inset 0 0 0.25rem rgba(0, 0, 0, 0.5);
+	display: grid;
+	place-items: center;
+}
+
+.square-text {
+	font-size: 2.5rem;
+	font-family: 'Kosugi Maru', sans-serif;
+	background: linear-gradient(to bottom right, #e0e0e0, #747474);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+}
+
+.slider-square:nth-child(even) {
+	background-color: var(--tan-color);
+}
+
+.slider-square:nth-child(odd) {
+	background: linear-gradient(to bottom right, var(--red-color), var(--dard-red-color));
+}
