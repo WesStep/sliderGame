@@ -57,3 +57,23 @@ body {
 .slider-tile:nth-child(odd) {
 	background: linear-gradient(to bottom right, var(--red-color), var(--dark-red-color));
 }
+
+.move-down {
+	margin-top: 4rem;
+	transition: margin-top 0.1s ease-in;
+}
+
+.move-up {
+	margin-top: -4rem;
+	transition: margin-top 0.1s ease-in;
+}
+
+.move-right {
+	margin-left: 4rem;
+	transition: margin-left 0.1s ease-in;
+}
+
+.move-left {
+	margin-left: -4rem;
+	transition: margin-left 0.1s ease-in;
+}

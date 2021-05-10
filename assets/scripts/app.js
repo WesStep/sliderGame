@@ -1,5 +1,7 @@
 const sliderBody = document.querySelector('#slider-body');
 
+const CSS_MOVE_CLASS_START = 'move-';
+
 const TILE_COUNT = 15;
 const INITIAL_TILE_ORDER = [
 	'1/1', '1/2', '1/3', '1/4',
@@ -37,30 +39,33 @@ function createTile(i) {
 }
 
 function clickHandler(e) {
-	let currentTarget = (e.target.classList.contains('tile-text')) ? e.target.parentElement : e.target;
-	let currentPosition = currentTarget.dataset.position;
+	const currentTarget = (e.target.classList.contains('tile-text')) ? e.target.parentElement : e.target;
+	const currentPosition = currentTarget.dataset.position;
+	const movePosition = findMovePosition(currentPosition);
 
-	// Step 2: find what other positions we need to check
-	let checkPositions = [];
-	const positionArray = currentPosition.split('/');
-	const leftOf = (parseInt(positionArray[0]) - 1).toString() + '/' + positionArray[1];
-	const rightOf = (parseInt(positionArray[0]) + 1).toString() + '/' + positionArray[1];
-	const below = positionArray[0] + '/' + (parseInt(positionArray[1]) - 1).toString();
-	const above = positionArray[0] + '/' + (parseInt(positionArray[1]) + 1).toString();
-	if (INITIAL_TILE_ORDER.includes(leftOf)) checkPositions.push(leftOf);
-	if (INITIAL_TILE_ORDER.includes(rightOf)) checkPositions.push(rightOf);
-	if (INITIAL_TILE_ORDER.includes(below)) checkPositions.push(below);
-	if (INITIAL_TILE_ORDER.includes(above)) checkPositions.push(above);
-
-	const adjacentTiles = tiles.filter(tile => checkPositions.includes(tile.dataset.position));
-	const adjacentTilePositions = adjacentTiles.map(tile => tile.dataset.position);
-		// Step 3b: if we find one that is empty, move the tile to that currentPosition
-	const emptyPosition = checkPositions.filter(pos => !adjacentTilePositions.includes(pos))[0];
-
-	if (emptyPosition) {
-		currentTarget.dataset.position = emptyPosition;
-		currentTarget.style.gridArea = `${emptyPosition}/${emptyPosition}`;
+	if (movePosition && Object.keys(movePosition).length !== 0 && movePosition.constructor === Object) {
+		currentTarget.classList.add(CSS_MOVE_CLASS_START + Object.keys(movePosition));
+		currentTarget.addEventListener('transitionend', () => {
+			currentTarget.classList.remove(CSS_MOVE_CLASS_START + Object.keys(movePosition));
+			currentTarget.dataset.position = movePosition[Object.keys(movePosition)[0]];
+			currentTarget.style.gridArea = `${movePosition[Object.keys(movePosition)[0]]}/${movePosition[Object.keys(movePosition)[0]]}`;
+			currentTarget.removeEventListener('transitionend', null);
+		});
 	}
+}
+
+function findMovePosition(currentPos) {
+	let movePos = {left: null, right: null, up: null, down: null};
+	const rowAndColumn = currentPos.split('/');
+	movePos.left = rowAndColumn[0] + '/' + (parseInt(rowAndColumn[1]) - 1).toString();
+	movePos.right = rowAndColumn[0] + '/' + (parseInt(rowAndColumn[1]) + 1).toString();
+	movePos.down = (parseInt(rowAndColumn[0]) + 1).toString() + '/' + rowAndColumn[1];
+	movePos.up = (parseInt(rowAndColumn[0]) - 1).toString() + '/' + rowAndColumn[1];
+	for (const pos in movePos) {
+		if (!INITIAL_TILE_ORDER.includes(movePos[pos])) delete movePos[pos];
+		if (tiles.find(tile => tile.dataset.position === movePos[pos])) delete movePos[pos];
+	}
+	return movePos;
 }
 
 function createTileText(i) {
