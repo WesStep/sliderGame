@@ -2,10 +2,10 @@ const sliderBody = document.querySelector('#slider-body');
 
 const TILE_COUNT = 15;
 const INITIAL_TILE_ORDER = [
-	'0-3', '1-3', '2-3', '3-3',
-	'0-2', '1-2', '2-2', '3-2',
-	'0-1', '1-1', '2-1', '3-1',
-	'0-0', '1-0', '2-0', '3-0',
+	'1/1', '1/2', '1/3', '1/4',
+	'2/1', '2/2', '2/3', '2/4',
+	'3/1', '3/2', '3/3', '3/4',
+	'4/1', '4/2', '4/3', '4/4',
 ];
 
 let tiles = [];
@@ -37,17 +37,30 @@ function createTile(i) {
 }
 
 function clickHandler(e) {
-	let currentPosition = (e.target.classList.contains('tile-text')) ? e.target.parentElement.dataset.position : e.target.dataset.position;
+	let currentTarget = (e.target.classList.contains('tile-text')) ? e.target.parentElement : e.target;
+	let currentPosition = currentTarget.dataset.position;
 
 	// Step 2: find what other positions we need to check
 	let checkPositions = [];
-	let positionArray = currentPosition.split('-');
-	const leftOf = (parseInt(positionArray[0]) - 1).toString() + '-' + positionArray[1];
+	const positionArray = currentPosition.split('/');
+	const leftOf = (parseInt(positionArray[0]) - 1).toString() + '/' + positionArray[1];
+	const rightOf = (parseInt(positionArray[0]) + 1).toString() + '/' + positionArray[1];
+	const below = positionArray[0] + '/' + (parseInt(positionArray[1]) - 1).toString();
+	const above = positionArray[0] + '/' + (parseInt(positionArray[1]) + 1).toString();
 	if (INITIAL_TILE_ORDER.includes(leftOf)) checkPositions.push(leftOf);
+	if (INITIAL_TILE_ORDER.includes(rightOf)) checkPositions.push(rightOf);
+	if (INITIAL_TILE_ORDER.includes(below)) checkPositions.push(below);
+	if (INITIAL_TILE_ORDER.includes(above)) checkPositions.push(above);
 
-	console.log();
-	// Step 3: search those positions
+	const adjacentTiles = tiles.filter(tile => checkPositions.includes(tile.dataset.position));
+	const adjacentTilePositions = adjacentTiles.map(tile => tile.dataset.position);
 		// Step 3b: if we find one that is empty, move the tile to that currentPosition
+	const emptyPosition = checkPositions.filter(pos => !adjacentTilePositions.includes(pos))[0];
+
+	if (emptyPosition) {
+		currentTarget.dataset.position = emptyPosition;
+		currentTarget.style.gridArea = `${emptyPosition}/${emptyPosition}`;
+	}
 }
 
 function createTileText(i) {
@@ -70,6 +83,7 @@ function displayTiles() {
 	let i = 0;
 	for (const tile of tiles) {
 		tile.dataset.position = INITIAL_TILE_ORDER[i];
+		tile.style.gridArea = INITIAL_TILE_ORDER[i];
 		sliderBody.appendChild(tile);
 		i ++;
 	}
