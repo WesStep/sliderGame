@@ -8,6 +8,9 @@
 	--tan-color: rgb(222,206,180);
 	--red-color: rgb(136,49,42);
 	--dark-red-color: rgb(95,22,16);
+	--tile-size: 5rem;
+	--negative-tile-size: -5rem;
+	--text-size: 4rem;
 }
 
 body {
@@ -19,14 +22,15 @@ body {
 }
 
 #slider-body {
-	height: 16.5rem;
-	width: 16.5rem;
+	height: calc((var(--tile-size) * 4) + 0.5rem);
+	width: calc((var(--tile-size) * 4) + 0.5rem);
 	padding: 0.25rem;
 	border-radius: 0.25rem;
 	box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.5);
 	background: linear-gradient(to bottom right, #e0e0e0, #747474);
 	display: grid;
-	grid: repeat(4, 4rem) / repeat(4, 4rem);
+	grid: var(--tile-size) var(--tile-size) var(--tile-size) var(--tile-size) /
+		  var(--tile-size) var(--tile-size) var(--tile-size) var(--tile-size);
 }
 
 .slider-tile {
@@ -43,7 +47,7 @@ body {
 }
 
 .tile-text {
-	font-size: 3.5rem;
+	font-size: var(--text-size);
 	font-family: 'Kosugi Maru', sans-serif;
 	background: linear-gradient(to bottom right, #e0e0e0, #747474);
 	-webkit-background-clip: text;
@@ -59,21 +63,21 @@ body {
 }
 
 .move-down {
-	margin-top: 4rem;
+	margin-top: var(--tile-size);
 	transition: margin-top 0.1s ease-in;
 }
 
 .move-up {
-	margin-top: -4rem;
+	margin-top: var(--negative-tile-size);
 	transition: margin-top 0.1s ease-in;
 }
 
 .move-right {
-	margin-left: 4rem;
+	margin-left: var(--tile-size);
 	transition: margin-left 0.1s ease-in;
 }
 
 .move-left {
-	margin-left: -4rem;
+	margin-left: var(--negative-tile-size);
 	transition: margin-left 0.1s ease-in;
 }
