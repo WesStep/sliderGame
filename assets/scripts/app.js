@@ -63,10 +63,10 @@ function clickHandler(e) {
 function findMovePosition(currentPos) {
 	let movePos = {left: null, right: null, up: null, down: null};
 	const rowAndColumn = currentPos.split('/');
-	movePos.left = rowAndColumn[0] + '/' + (parseInt(rowAndColumn[1]) - 1).toString();
-	movePos.right = rowAndColumn[0] + '/' + (parseInt(rowAndColumn[1]) + 1).toString();
-	movePos.down = (parseInt(rowAndColumn[0]) + 1).toString() + '/' + rowAndColumn[1];
-	movePos.up = (parseInt(rowAndColumn[0]) - 1).toString() + '/' + rowAndColumn[1];
+	movePos.left = rowAndColumn[0] + '/' + (+rowAndColumn[1] - 1).toString();
+	movePos.right = rowAndColumn[0] + '/' + (+rowAndColumn[1] + 1).toString();
+	movePos.down = (+rowAndColumn[0] + 1).toString() + '/' + rowAndColumn[1];
+	movePos.up = (+rowAndColumn[0] - 1).toString() + '/' + rowAndColumn[1];
 	for (const pos in movePos) {
 		if (!INITIAL_TILE_ORDER.includes(movePos[pos])) delete movePos[pos];
 		if (tiles.find(tile => tile.dataset.position === movePos[pos])) delete movePos[pos];
