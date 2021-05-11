@@ -1,4 +1,6 @@
 const sliderBody = document.querySelector('#slider-body');
+const envelope = document.querySelector('#envelope-body');
+const envelopeButton = document.querySelector('#envelope-button');
 
 const CSS_MOVE_CLASS_START = 'move-';
 
@@ -11,6 +13,10 @@ const INITIAL_TILE_ORDER = [
 ];
 
 let tiles = [];
+
+envelopeButton.addEventListener('click', function() {
+	envelope.remove();
+});
 
 generateTiles();
 

@@ -18,10 +18,50 @@ body {
 	height: 100vh;
 	width: 100vw;
 	display: grid;
+	grid: "body" 1fr / 1fr;
 	place-items: center;
 }
 
+#envelope-body {
+	position: relative;
+	z-index: 5;
+	display: grid;
+	grid-area: body;
+	height: calc((var(--tile-size) * 4) + 1rem);
+	width: calc((var(--tile-size) * 4) + 1rem);
+	box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.5);
+	grid: "env-top" 1fr
+		  "env-bottom" 1fr / 1fr;
+}
+
+#envelope-bottom {
+	grid-area: env-bottom;
+	background-color: var(--dark-red-color);
+}
+
+#envelope-button {
+	position: absolute;
+	top: calc(50% - 1.5rem);
+	left: calc(50% - 1.5rem);
+	background: radial-gradient(gold 50%, darkgoldenrod);
+	border-radius: 50%;
+	box-shadow: 0.25rem 0.25rem 0.25rem rgba(0, 0, 0, 0.5);
+	padding: 1.5rem;
+	cursor: pointer;
+}
+
+#envelope-top {
+	grid-area: env-top;
+	background-color: var(--dark-red-color);
+	width: 0;
+	height: 0;
+	border-radius: 0.25rem;
+	border: calc(((var(--tile-size) * 4) + 1rem) / 2) solid transparent;
+	border-top-color: var(--red-color);
+}
+
 #slider-body {
+	grid-area: body;
 	height: calc((var(--tile-size) * 4) + 0.5rem);
 	width: calc((var(--tile-size) * 4) + 0.5rem);
 	padding: 0.25rem;
