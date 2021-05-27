@@ -5,7 +5,7 @@ A traditional 4x4 picture slider game
 https://wesstep.github.io/sliderGame/
 
 ## MVP:
-- [x] The puzzle will resemble this puzzle from Miles Kimball (https://www.mileskimball.com/buy-fifteen-puzzle-312500).
+- [x] The puzzle will resemble [this puzzle from Miles Kimball](https://www.mileskimball.com/buy-fifteen-puzzle-312500).
 - [x] This game will be mobile friendly and mobile first.
 - [x] There will be animations with each slider piece movement.
 - [x] The user will be able to click or tap a button to open the case that the slider puzzle comes in.
