@@ -2,7 +2,7 @@
 A traditional 4x4 picture slider game
 
 ## URL
-https://wesstep.github.io/sliderGame/
+https://slider.wesstep.com
 
 ## MVP:
 - [x] The puzzle will resemble [this puzzle from Miles Kimball](https://www.mileskimball.com/buy-fifteen-puzzle-312500).
